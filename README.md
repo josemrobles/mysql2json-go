@@ -1,2 +1,2 @@
 # mysql2json-go
-Inspored by Arturom. Connects to a MySQL database and prints JSON formatted records to STDOUT
+Inspired by [Arturom's](https://github.com/arturom) Awesome [mysql2json](https://github.com/arturom/mysql2json) python script. Connects to a MySQL database and prints JSON formatted records to STDOUT...but using Golang!
