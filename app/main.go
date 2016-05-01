@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"flag"
 	_ "github.com/go-sql-driver/mysql"
+	"log"
 )
 
 func main() {
@@ -12,18 +13,32 @@ func main() {
 	port := flag.String("port", "", "server port")
 	database := flag.String("database", "", "default database")
 	query := flag.String("query", "", "a SQL query")
-	query_file := flag.String("query_file", "", "a SQL query file")
+	//query_file := flag.String("query_file", "", "a SQL query file")
 	user := flag.String("user", "", "username")
 	password := flag.String("password", "", "password")
 	flag.Parse()
 
-	c, err := sql.Open("mysql", *user+":"+*password+"@tcp("+*host+":"+*port+")/"+*database+"?allowOldPasswords=1")
+	db, err := sql.Open("mysql", *user+":"+*password+"@tcp("+*host+":"+*port+")/"+*database+"?allowOldPasswords=1")
 	if err != nil {
-		panic(err)
+		log.Println("one")
+		log.Fatal(err)
 	}
-	defer c.Close()
+	defer db.Close()
+
+	getData(db, *query)
 }
 
-func getDatai(c *sql.DB, query string) (error, data string) {
-
+func getData(db *sql.DB, query string) {
+	rows, err := db.Query(query)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rows.Close()
+	for rows.Next() {
+		// do stuff with data
+	}
+	err = rows.Err()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
