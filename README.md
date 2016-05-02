@@ -9,6 +9,10 @@ Inspired by [Arturom's](https://github.com/arturom) awesome [mysql2json](https:/
 
 ### Turn this
 ```
+SELECT * FROM products;
+```
+
+```
 +----+----------------+-------------------+
 | id | name           | quantity          |
 +----+----------------+-------------------+
