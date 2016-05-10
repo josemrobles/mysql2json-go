@@ -27,7 +27,8 @@ func main() {
 		log.Fatal(err)
 	}
 	defer db.Close()
-
+	
+	// Query database
 	jsonData, err := getData(db, *query)
 	if err != nil {
 		log.Fatal(err)
