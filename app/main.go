@@ -52,15 +52,15 @@ func getData(db *sql.DB, query string) (string, error) {
 		return "", err
 	}
 	count := len(cols)
-
 	td := make([]map[string]interface{}, 0)
 	data := make([]interface{}, count)
-	valuePtrs := make([]interface{}, count)
+	vals := make([]interface{}, count)
+	
 	for records.Next() {
 		for i := 0; i < count; i++ {
-			valuePtrs[i] = &data[i]
+			vals[i] = &data[i]
 		}
-		records.Scan(valuePtrs...)
+		records.Scan(vals...)
 		entry := make(map[string]interface{})
 		for i, column := range columns {
 			var v interface{}
