@@ -39,28 +39,27 @@ func main() {
 func getData(db *sql.DB, query string) (string, error) {
 
 	// Execute the query
-	rows, err := db.Query(query)
+	records, err := db.Query(query)
 	if err != nil {
 		return "", err
 	}
-	defer rows.Close()
+	defer records.Close()
 
 	// Get the column names
-	columns, err := rows.Columns()
+	cols, err := records.Columns()
 	if err != nil {
 		return "", err
 	}
-	count := len(columns)
+	count := len(cols)
 
-	// Get the data and convert to json
-	tableData := make([]map[string]interface{}, 0)
+	td := make([]map[string]interface{}, 0)
 	data := make([]interface{}, count)
 	valuePtrs := make([]interface{}, count)
-	for rows.Next() {
+	for records.Next() {
 		for i := 0; i < count; i++ {
 			valuePtrs[i] = &data[i]
 		}
-		rows.Scan(valuePtrs...)
+		records.Scan(valuePtrs...)
 		entry := make(map[string]interface{})
 		for i, column := range columns {
 			var v interface{}
@@ -73,9 +72,9 @@ func getData(db *sql.DB, query string) (string, error) {
 			}
 			entry[column] = v
 		}
-		tableData = append(tableData, entry)
+		td = append(td, entry)
 	}
-	json, err := json.Marshal(tableData)
+	json, err := json.Marshal(td)
 	if err != nil {
 		return "", err
 	}
