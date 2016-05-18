@@ -3,12 +3,12 @@ Inspired by [Arturom's](https://github.com/arturom) awesome [mysql2json](https:/
 
 
 ### Use this:
-```
+```bash
 ./app -host=server -port=3306 -user=hello -password=hola -database=bonjour -query="SELECT * FROM products LIMIT 1"
 ```
 
 ### Turn this
-```
+```sql
 SELECT * FROM products;
 ```
 
