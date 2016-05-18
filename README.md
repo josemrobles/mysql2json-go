@@ -21,6 +21,6 @@ SELECT * FROM products;
 ```
 
 ### Into this
-```
+```json
 [{"id":"1","name":"TLR 22 3.0","quantity":"1"}]
 ```
